@@ -2,7 +2,7 @@ import os
 from setting import REPORT_DIR
 
 
-class Utils():
+class Utils:
     def __init__(self):
         pass
 
