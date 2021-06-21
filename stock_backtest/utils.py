@@ -1,10 +1,13 @@
+import os
+from setting import REPORT_DIR
+
 class Utils():
     def __init__(self):
         pass
 
-    def creat_dir(self):
-        pass
+    @staticmethod
+    def create_dir():
+        os.makedirs(REPORT_DIR, exist_ok=True)
 
-    def report_dir_is_exist(self):
-        pass
+
 
