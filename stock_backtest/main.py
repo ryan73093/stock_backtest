@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import math
 import os
 
+from stock_backtest.utils import Utils
+from stock_backtest.pineline.pineline import
+
 # %%
 
 host = os.getenv('sql_host')
@@ -35,10 +38,16 @@ def main():
     steps = [
         Preflight(),
         ReadData(),
-        CleanData(),
-        AnalysisMethodSelect(),
-        CalculateRevenue(),
-        ExportReport(),
-        PostFlight()
+        # CleanData(),
+        # AnalysisMethodSelect(),
+        # CalculateRevenue(),
+        # ExportReport(),
+        # PostFlight()
 
     ]
+    utils = Utils()
+    p = Pipeline(steps)
+    p.run(inputs, utils)
+
+if __name__ == '__main__':
+    main()

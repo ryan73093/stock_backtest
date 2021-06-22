@@ -1,6 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jun 21 17:27:38 2021
+from stock_backtest.pineline.steps.step import StepException
 
-@author: ryan7
-"""
+
+class Pipeline:
+    def __init__(self, steps):
+        self.steps = steps
+
+    def run(self, inputs, utils):
+        data = None
+        for step in self.steps:
+            try:
+                data = step.process(data, inputs, utils)
+            except StepException as e:
+                print('Exception happended:', e)
+                break

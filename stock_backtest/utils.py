@@ -1,5 +1,5 @@
 import os
-from setting import REPORT_DIR
+from stock_backtest.setting import REPORT_DIR
 
 
 class Utils:
