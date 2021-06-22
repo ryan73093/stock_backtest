@@ -21,7 +21,6 @@ class ReadData(Step):
             if inputs['STOCK_CODE'] != '*':
                 df = pd.DataFrame()
                 for i in inputs['STOCK_CODE']:
-                    print(i)
                     df_ = pd.read_sql(
                         f"SELECT * FROM stock_everyday_new "
                         f"WHERE DATE BETWEEN '{inputs['START_DATE']}' and '{inputs['END_DATE']}' "
@@ -30,7 +29,6 @@ class ReadData(Step):
                     df = pd.concat([df, df_], axis=0)
 
             else:
-                print(2)
                 df = pd.read_sql(
                     f"SELECT * FROM stock_everyday_new "
                     f"WHERE DATE BETWEEN '{inputs['START_DATE']}' and '{inputs['END_DATE']}'",
