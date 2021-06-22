@@ -12,4 +12,5 @@ class Step(ABC):
 
 
 class StepException(Exception):
+    print()
     pass

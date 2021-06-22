@@ -1,4 +1,4 @@
-from stock_backtest.pineline.steps.step import StepException
+from stock_backtest.pipeline.steps.step import StepException
 
 
 class Pipeline:

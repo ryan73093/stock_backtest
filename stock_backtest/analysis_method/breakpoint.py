@@ -32,7 +32,7 @@ require_inputs = {
     'endDate': '2020-12-01'}
 
 # %%
-from stock_backtest.pineline.steps.data_integrate import Integrate
+from stock_backtest.pipeline.steps.data_integrate import Integrate
 
 I = Integrate()
 df_result = pd.DataFrame(columns=['股票代號', '最後股價', '總收益', '進出金額', '進出次數'])

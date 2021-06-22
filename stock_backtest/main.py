@@ -10,7 +10,9 @@ import math
 import os
 
 from stock_backtest.utils import Utils
-from stock_backtest.pineline.pineline import
+from stock_backtest.pipeline.pipeline import Pipeline
+from stock_backtest.pipeline.steps.preflight import Preflight
+from stock_backtest.pipeline.steps.read_data import ReadData
 
 # %%
 
@@ -24,13 +26,12 @@ df_db = pd.read_sql('SELECT * FROM stock_everyday_new', con=conn)
 df_db.head()
 df = df_db.copy()
 
-INPUT = {
+inputs = {
     'METHOD': 'breakponit',
     'START_DATE': '2020-01-01',
-    'END_DATE': '2020-12-01',
+    'END_DATE': '2020-02-01',
     'EXPORT_METHOD': 'jpg',
-    'STOCK_CODE': '2330'
-
+    'STOCK_CODE': ['2330', '2323']
 }
 
 
@@ -38,7 +39,7 @@ def main():
     steps = [
         Preflight(),
         ReadData(),
-        # CleanData(),
+        # DataClean(),
         # AnalysisMethodSelect(),
         # CalculateRevenue(),
         # ExportReport(),
@@ -48,6 +49,7 @@ def main():
     utils = Utils()
     p = Pipeline(steps)
     p.run(inputs, utils)
+
 
 if __name__ == '__main__':
     main()

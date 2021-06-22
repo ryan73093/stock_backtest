@@ -1,4 +1,4 @@
-from stock_backtest.pineline.steps.step import IntegrateABC
+from stock_backtest.pipeline.steps.step import IntegrateABC
 
 
 class Integrate(IntegrateABC):
@@ -7,8 +7,7 @@ class Integrate(IntegrateABC):
 
     def integrate(self, df, require_inputs):
         # caculate avg
-        df_tmp = df[df['SECURITY_CODE'] == require_inputs['code']].reset_index(drop=True)
-        df_tmp = df_tmp[(df_tmp['DATE'] >= require_inputs['startDate']) & (df_tmp['DATE'] <= require_inputs['endDate'])]
+
         df_tmp['DAY_MEAN5'] = df_tmp['CLOSING_PRICE'].rolling(5).mean()
         df_tmp['DAY_MEAN20'] = df_tmp['CLOSING_PRICE'].rolling(20).mean()
         df_tmp['DAY_MEAN60'] = df_tmp['CLOSING_PRICE'].rolling(60).mean()
