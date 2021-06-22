@@ -17,7 +17,6 @@ class ReadData(Step):
                                passwd=SQL_PASSWORD,
                                db=SQL_DB)
         try:
-            print(1)
             if inputs['STOCK_CODE'] != '*':
                 df = pd.DataFrame()
                 for i in inputs['STOCK_CODE']:
