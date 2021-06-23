@@ -1,5 +1,6 @@
 import pymysql
 import pandas as pd
+import matplotlib as plt
 from .step import Step
 from .step import StepException
 from stock_backtest.setting import SQL_HOST
@@ -7,6 +8,7 @@ from stock_backtest.setting import SQL_PORT
 from stock_backtest.setting import SQL_USER
 from stock_backtest.setting import SQL_PASSWORD
 from stock_backtest.setting import SQL_DB
+from stock_backtest.setting import SQL_TABLE
 
 
 class ReadData(Step):
@@ -21,7 +23,7 @@ class ReadData(Step):
                 df = pd.DataFrame()
                 for i in inputs['STOCK_CODE']:
                     df_ = pd.read_sql(
-                        f"SELECT * FROM stock_everyday_new "
+                        f"SELECT * FROM {SQL_TABLE} "
                         f"WHERE DATE BETWEEN '{inputs['START_DATE']}' and '{inputs['END_DATE']}' "
                         f"AND SECURITY_CODE = {i}",
                         con=conn)
@@ -29,12 +31,13 @@ class ReadData(Step):
 
             else:
                 df = pd.read_sql(
-                    f"SELECT * FROM stock_everyday_new "
+                    f"SELECT * FROM {SQL_TABLE} "
                     f"WHERE DATE BETWEEN '{inputs['START_DATE']}' and '{inputs['END_DATE']}'",
                     con=conn)
 
         except Exception as e:
             print(e)
             pass
-        print(df)
-        return df
+
+        data = df
+        return data
