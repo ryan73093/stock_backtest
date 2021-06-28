@@ -16,12 +16,16 @@ from stock_backtest.pipeline.steps.read_data import ReadData
 from stock_backtest.pipeline.steps.data_integrate import DataIntegrate
 from stock_backtest.pipeline.steps.analysis import Analysis
 
+import pandas as pd
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_row', None)
+help(pd.set_option)
 inputs = {
     'METHOD': 'breakpoint',
     'START_DATE': '2020-01-01',
-    'END_DATE': '2020-02-01',
+    'END_DATE': '2021-04-30',
     'EXPORT_METHOD': 'jpg',
-    'STOCK_CODE': ['2330', '2323']
+    'STOCK_CODE': '2603'
 }
 
 
