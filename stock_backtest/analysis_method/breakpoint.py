@@ -5,10 +5,13 @@ import math
 from .analysis_method import AnalysisMethod
 from stock_backtest.setting import PICTURE_DIR
 
+
 class BreakPoint(AnalysisMethod):
-    def analysis_info(self, data, inputs, utils):
-        print('break point analysis')
-        pass
+    @staticmethod
+    def analysis_info():
+        data = 'BreakPoint Analysis :\n\n' \
+               'Buy a stock at a historical high in the time frame and \n' \
+               'sell it at a profit of 10% or a loss of 3%.'
         return data
 
     def analysis(self, data, inputs, utils):
@@ -44,7 +47,6 @@ class BreakPoint(AnalysisMethod):
         data['SOLD_DATE'] = lst_date
         data['SOLD_PRICE'] = lst_sold
         data['REVENUE'] = data['SOLD_PRICE'] - data['BREAK_PRICE']
-
         return data
 
     def revenue(self, data, inputs, utils):
@@ -60,7 +62,7 @@ class BreakPoint(AnalysisMethod):
             'end_date': df.iloc[-1]['DATE'],
             'final_price': df.iloc[-1]['CLOSING_PRICE'],
             'revenue': round(df_['REVENUE'].sum(), 2),
-            'revenue(%)': round((df_['SOLD_PRICE'].sum()) / (df_['BREAK_PRICE'].sum())*100, 2),
+            'revenue(%)': round((df_['SOLD_PRICE'].sum()) / (df_['BREAK_PRICE'].sum()) * 100, 2),
             'amount in and out': round(df_['CLOSING_PRICE'].sum(), 2),
             'frequency in an out': len(df_),
             'hold_time_avg': df_['HOLD_TIME'].mean(),
@@ -70,7 +72,6 @@ class BreakPoint(AnalysisMethod):
         df = pd.DataFrame(dict_df, index=[0])
         df = df.T.reset_index()
         df.columns = ['Item', 'Data']
-        print(df)
         return df
 
     def plot_graph(self, data, inputs, utils):
@@ -79,9 +80,8 @@ class BreakPoint(AnalysisMethod):
         plt.figure(figsize=(16, 10))
         plt_grid = plt.GridSpec(3, 5, wspace=0.2, hspace=0.1)
 
-        
         # grid(1)
-        plt.subplot(plt_grid[0:2, 0:3])  # all row, 0 column
+        plt.subplot(plt_grid[0:2, 0:3])
         df_ = df[(df['BREAK_PRICE'] != 0)
                  & (df['LIMIT_UP'] != 1)
                  & (df['SOLD_PRICE'] != 0)]
@@ -100,15 +100,18 @@ class BreakPoint(AnalysisMethod):
         plt.xticks(color='w')
         plt.legend(handles=[mpatches.Patch(color=c, label=l) for c, l in zip(colors, labels)])
 
-
         # grid(2)
-        plt.subplot(plt_grid[2, 0:3])  # 0 row, 1之後的所有column
+        plt.subplot(plt_grid[2, 0:3])
         plt.bar(df['DATE'], df['TRADE_VOLUME'])
         utils.plt_figure_interval(df)
 
+        # grid(3)-info
+        plt.subplot(plt_grid[0:1, 3:])
+        plt.axis('off')
+        plt.text(x=0, y=0.5, s=self.analysis_info(), fontsize=16)
 
-        # grid(table)
-        plt.subplot(plt_grid[0:, 3:])  # 1 row, 2 column
+        # grid(4)-revenue table
+        plt.subplot(plt_grid[1:, 3:])
         df = self.revenue(data, inputs, utils)
         plt.axis('tight')
         plt.axis('off')

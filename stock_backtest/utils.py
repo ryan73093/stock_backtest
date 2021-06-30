@@ -41,7 +41,6 @@ class Utils:
             for k in lst_month:
                 try:
                     df_tmp_interval = df[(df['YEAR'] == i) & (df['MONTH'] == k)]
-                    print(i,k)
                     lst_xsticks.append(df_tmp_interval.iloc[0]['DATE'])
                     lst_xsticks.append(df_tmp_interval.iloc[math.ceil(len(df_tmp_interval) / 2)]['DATE'])
                 except IndexError:

@@ -7,7 +7,7 @@ class AnalysisMethod(ABC):
         pass
 
     @abstractmethod
-    def analysis_info(self, data, inputs, utils):
+    def analysis_info(self):
         pass
 
     @abstractmethod
